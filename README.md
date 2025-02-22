@@ -8,6 +8,7 @@ A browser that doesn't require a mouse. Just the keyboard is enough.
 
 Member-1: Ajeet
 Member-2 : Falgun
+Member-3 : Hitanshu Kumar Singh
 
 [Our FOSS Idea](https://fossunited.org/hack/fosshack25/p/gu6i7f7503)
 
