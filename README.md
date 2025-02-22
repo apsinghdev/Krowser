@@ -8,7 +8,7 @@ A browser that doesn't require a mouse. Just the keyboard is enough.
 
 Member-1: Ajeet
 Member-2 : Falgun
-
+Member-3 : Hitanshu Kumar Singh
 
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
