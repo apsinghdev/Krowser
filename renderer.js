@@ -1,157 +1,168 @@
+// Browser elements
 const webview = document.getElementById('webview');
 const urlBar = document.getElementById('urlBar');
 const backBtn = document.getElementById('backBtn');
 const forwardBtn = document.getElementById('forwardBtn');
 const reloadBtn = document.getElementById('reloadBtn');
+const homeBtn = document.getElementById('homeBtn');
 
-// URL bar functionality
-urlBar.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        let url = urlBar.value;
+// Constants
+const GOOGLE_SEARCH_URL = 'https://www.google.com/search?q=';
+const HOME_URL = 'https://www.google.com';
+
+// Browser state
+let currentZoomLevel = 1;
+let isFullscreen = false;
+
+// URL handling
+class URLHandler {
+    static isValidURL(input) {
+        const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?$/;
+        return urlPattern.test(input) || input.includes('localhost');
+    }
+
+    static formatURL(url) {
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
-            url = 'https://' + url;
+            return 'https://' + url;
         }
-        webview.loadURL(url);
+        return url;
     }
-});
 
-// Basic navigation buttons
-backBtn.addEventListener('click', () => {
-    if (webview.canGoBack()) {
-        webview.goBack();
+    static handleNavigation(input) {
+        if (!input.trim()) {
+            webview.loadURL(HOME_URL);
+            return;
+        }
+
+        if (this.isValidURL(input)) {
+            webview.loadURL(this.formatURL(input));
+        } else {
+            webview.loadURL(GOOGLE_SEARCH_URL + encodeURIComponent(input));
+        }
     }
-});
+}
 
-forwardBtn.addEventListener('click', () => {
-    if (webview.canGoForward()) {
-        webview.goForward();
+// Event Handlers
+class BrowserEvents {
+    static init() {
+        this.setupURLBar();
+        this.setupNavigationButtons();
+        this.setupWebviewEvents();
+        this.setupKeyboardShortcuts();
     }
-});
 
-reloadBtn.addEventListener('click', () => {
-    webview.reload();
-});
+    static setupURLBar() {
+        urlBar.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                URLHandler.handleNavigation(urlBar.value);
+            }
+        });
+    }
 
-// Update URL bar when navigation occurs
-webview.addEventListener('did-navigate', (e) => {
-    urlBar.value = e.url;
-});
+    static setupNavigationButtons() {
+        backBtn.addEventListener('click', () => {
+            if (webview.canGoBack()) webview.goBack();
+        });
 
-// Custom key bindings
-document.addEventListener('keydown', (e) => {
-    // Only trigger if not typing in URL bar
-    if (document.activeElement !== urlBar) {
-        switch(e.key.toLowerCase()) {
-            // Scrolling
-            case 'j':
-                webview.executeJavaScript('window.scrollBy(0, 100)');
-                break;
-            case 'k':
-                webview.executeJavaScript('window.scrollBy(0, -100)');
-                break;
-            case 'g':
-                if (e.shiftKey) {
-                    // Shift + G: scroll to bottom
-                    webview.executeJavaScript('window.scrollTo(0, document.body.scrollHeight)');
-                } else {
-                    // g: scroll to top
-                    webview.executeJavaScript('window.scrollTo(0, 0)');
-                }
-                break;
-            case 'd':
-                // Half page down
-                webview.executeJavaScript(`
-                    window.scrollBy(0, window.innerHeight * 0.5);
-                `);
-                break;
-            case 'u':
-                // Half page up
-                webview.executeJavaScript(`
-                    window.scrollBy(0, -window.innerHeight * 0.5);
-                `);
-                break;
+        forwardBtn.addEventListener('click', () => {
+            if (webview.canGoForward()) webview.goForward();
+        });
 
-            // Navigation
-            case 'h':
-                if (webview.canGoBack()) webview.goBack();
-                break;
-            case 'l':
+        reloadBtn.addEventListener('click', () => webview.reload());
+        
+        homeBtn.addEventListener('click', () => webview.loadURL(HOME_URL));
+    }
+
+    static setupWebviewEvents() {
+        webview.addEventListener('did-navigate', (e) => {
+            urlBar.value = e.url;
+            this.updateNavigationButtons();
+        });
+
+        webview.addEventListener('did-finish-load', () => {
+            this.updateNavigationButtons();
+        });
+    }
+
+    static updateNavigationButtons() {
+        backBtn.disabled = !webview.canGoBack();
+        forwardBtn.disabled = !webview.canGoForward();
+    }
+
+    static setupKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement === urlBar) return;
+
+            const shortcuts = {
+                // Navigation
+                'Alt+Left': () => webview.canGoBack() && webview.goBack(),
+                'Alt+Right': () => webview.canGoForward() && webview.goForward(),
+                'Alt+N': () => webview.canGoForward() && webview.goForward(),
+                'Alt+P': () => webview.canGoBack() && webview.goBack(),
+                'F5': () => webview.reload(),
+                'Alt+Home': () => webview.loadURL(HOME_URL),
+
+                // Zoom
+                'Control+=': () => this.adjustZoom(0.1),
+                'Control+-': () => this.adjustZoom(-0.1),
+                'Control+0': () => this.resetZoom(),
+
+                // Focus
+                '/': () => {
+                    urlBar.focus();
+                    urlBar.select();
+                    e.preventDefault();
+                },
+                'Escape': () => webview.focus(),
+
+                // Fullscreen
+                'F11': () => this.toggleFullscreen()
+            };
+
+            const shortcut = Object.keys(shortcuts).find(key => {
+                const parts = key.toLowerCase().split('+');
+                const lastKey = parts.pop();
+                return parts.every(modifier => e[modifier.toLowerCase() + 'Key']) && 
+                       e.key.toLowerCase() === lastKey.toLowerCase();
+            });
+
+            if (shortcut) {
+                e.preventDefault();
+                shortcuts[shortcut]();
+            }
+        });
+    }
+
+    static adjustZoom(delta) {
+        currentZoomLevel = Math.max(0.2, Math.min(5, currentZoomLevel + delta));
+        webview.setZoomLevel(Math.log2(currentZoomLevel));
+    }
+
+    static resetZoom() {
+        currentZoomLevel = 1;
+        webview.setZoomLevel(0);
+    }
+
+    static toggleFullscreen() {
+        const window = require('electron').remote.getCurrentWindow();
+        isFullscreen = !isFullscreen;
+        window.setFullScreen(isFullscreen);
+    }
+}
+
+// Initialize browser events
+BrowserEvents.init();
+
+// Handle messages from content script
+window.addEventListener('message', (event) => {
+    if (event.data.type === 'navigation') {
+        switch (event.data.action) {
+            case 'forward':
                 if (webview.canGoForward()) webview.goForward();
                 break;
-            case 'r':
-                webview.reload();
-                break;
-            
-            // Tab focus
-            case '/':
-                urlBar.focus();
-                e.preventDefault();
-                break;
-            case 'escape':
-                webview.focus();
-                break;
-
-            // Zoom
-            case '=':
-                if (e.ctrlKey) {
-                    webview.setZoomLevel(webview.getZoomLevel() + 1);
-                }
-                break;
-            case '-':
-                if (e.ctrlKey) {
-                    webview.setZoomLevel(webview.getZoomLevel() - 1);
-                }
-                break;
-            case '0':
-                if (e.ctrlKey) {
-                    webview.setZoomLevel(0);
-                }
+            case 'backward':
+                if (webview.canGoBack()) webview.goBack();
                 break;
         }
-    }
-});
-
-// Add key bindings help
-const showHelp = () => {
-    const helpHTML = `
-        <div style="padding: 20px">
-            <h2>Keyboard Shortcuts</h2>
-            <ul>
-                <li>j - Scroll down</li>
-                <li>k - Scroll up</li>
-                <li>g - Scroll to top</li>
-                <li>G - Scroll to bottom</li>
-                <li>d - Half page down</li>
-                <li>u - Half page up</li>
-                <li>h - Go back</li>
-                <li>l - Go forward</li>
-                <li>r - Reload page</li>
-                <li>/ - Focus URL bar</li>
-                <li>Esc - Focus page</li>
-                <li>Ctrl + = - Zoom in</li>
-                <li>Ctrl + - - Zoom out</li>
-                <li>Ctrl + 0 - Reset zoom</li>
-            </ul>
-        </div>
-    `;
-    webview.executeJavaScript(`
-        const helpDiv = document.createElement('div');
-        helpDiv.style.position = 'fixed';
-        helpDiv.style.top = '50%';
-        helpDiv.style.left = '50%';
-        helpDiv.style.transform = 'translate(-50%, -50%)';
-        helpDiv.style.background = 'white';
-        helpDiv.style.border = '1px solid black';
-        helpDiv.style.zIndex = '9999';
-        helpDiv.innerHTML = \`${helpHTML}\`;
-        document.body.appendChild(helpDiv);
-        setTimeout(() => helpDiv.remove(), 3000);
-    `);
-};
-
-// Add help shortcut
-document.addEventListener('keydown', (e) => {
-    if (e.key === '?' && document.activeElement !== urlBar) {
-        showHelp();
     }
 });
