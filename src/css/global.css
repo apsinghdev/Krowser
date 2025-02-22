@@ -77,3 +77,92 @@ webview {
     border: none;
     overflow: hidden; /* Scroll हटाने के लिए */
 }
+
+.krowser-highlight {
+    outline: 2px solid #007bff !important;
+    background-color: rgba(0, 123, 255, 0.1) !important;
+}
+
+/* Keyboard navigation indicator */
+.krowser-shortcut-hint {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 9999;
+}
+
+/* Additional styles for new features */
+#navbar button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 2px;
+}
+
+#navbar button:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+#shortcutHint {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 1000;
+    transition: opacity 0.3s;
+}
+
+#shortcutHint.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#shortcutHint ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+}
+
+#shortcutHint li {
+    margin: 5px 0;
+}
+
+/* Loading indicator */
+webview.loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #4285f4, #34a853, #fbbc05, #ea4335);
+    animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
