@@ -4,12 +4,19 @@ const backBtn = document.getElementById('backBtn');
 const forwardBtn = document.getElementById('forwardBtn');
 const reloadBtn = document.getElementById('reloadBtn');
 
+const searchEngines = {
+    google: "https://www.google.com/search?q=",
+};
+
+let currentSearchEngine = 'google'; // Default search engine ko Google set kar rahe hain
+
 // URL bar functionality
 urlBar.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         let url = urlBar.value;
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
-            url = 'https://' + url;
+            // Agar URL valid nahi hai, toh Google search karenge
+            url = searchEngines[currentSearchEngine] + encodeURIComponent(url);
         }
         webview.loadURL(url);
     }
