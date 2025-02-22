@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ajeet, Falgun",
   "license": "MIT",
-  "description": ""
+  "description": "A browser that doesn't need a mouse",
+  "dependencies": {
+    "electron": "^34.2.0"
+  }
 }
