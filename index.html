@@ -1,35 +1,20 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Quick Browser</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-        #navbar {
-            padding: 10px;
-            display: flex;
-            gap: 5px;
-        }
-        #urlBar {
-            flex-grow: 1;
-            padding: 5px;
-        }
-        #webview {
-            width: 100%;
-            height: calc(100vh - 50px);
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>krowser</title>
+    <link rel="stylesheet" href="src/css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <div id="navbar">
-        <button id="backBtn">←</button>
-        <button id="forwardBtn">→</button>
-        <button id="reloadBtn">↻</button>
+        <button id="backBtn"><i class="fa-solid fa-arrow-left"></i></button>
+        <button id="forwardBtn"><i class="fa-solid fa-arrow-right"></i></button>
+        <button id="reloadBtn"><i class="fa-solid fa-rotate-right"></i></button>
         <input type="text" id="urlBar" placeholder="Enter URL">
+        <button id="homeBtn"><i class="fa-solid fa-home"></i></button>
+        <button id="menuBtn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
     </div>
     <webview id="webview" src="https://www.google.com"></webview>
     <script src="renderer.js"></script>

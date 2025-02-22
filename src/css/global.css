@@ -1,0 +1,79 @@
+/* global.css */
+
+/* Reset Default Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* Scrollbar हटाने के लिए */
+}
+
+/* Body Styling */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #1e1e1e;
+    overflow: hidden; /* Body पर scroll हटाने के लिए */
+}
+
+/* Navbar Styling */
+#navbar {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: #292929;
+    color: white;
+    gap: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+/* Buttons Styling */
+button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+/* Input URL Bar */
+#urlBar {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #3a3a3a;
+    color: white;
+    outline: none;
+    transition: 0.3s;
+}
+
+#urlBar:focus {
+    background-color: #494949;
+}
+
+/* Webview Styling (FULL SCREEN) */
+webview {
+    flex: 1;
+    width: 100%;
+    height: calc(100vh - 50px); /* Navbar height adjust */
+    position: absolute;
+    top: 50px;
+    left: 0;
+    border: none;
+    overflow: hidden; /* Scroll हटाने के लिए */
+}
