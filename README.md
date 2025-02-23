@@ -9,6 +9,7 @@ A browser that doesn't require a mouse. Just the keyboard is enough.
 1. Member-1: Ajeet
 2. Member-2 : Falgun
 3. Member-3 : Hitanshu Kumar Singh
+4. Member-4 : Saurav Singh
 
 [Our FOSS Idea](https://fossunited.org/hack/fosshack25/p/gu6i7f7503)
 
@@ -23,7 +24,7 @@ A browser that doesn't require a mouse. Just the keyboard is enough.
 - [ ] a search bar to find all the availalble shortcuts based ie. I type `url` and all the shortcuts related to url shows up `alt+h` dampi
 - [ ] find all the input boxes on the page and hover over them (one by one). `alt+i` `up/down` `enter` 
 - [ ] show all the bookmarks, search and click.
-- [ ] go forward `alt+n` sarav
+- [ ] go forward `alt+n` saurav
 - [ ] go backward `alt+p` hitanshu
 
 
