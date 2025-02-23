@@ -6,7 +6,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden; /* Scrollbar हटाने के लिए */
+    overflow: hidden; 
 }
 
 /* Body Styling */
@@ -15,7 +15,7 @@ body {
     flex-direction: column;
     height: 100vh;
     background-color: #1e1e1e;
-    overflow: hidden; /* Body पर scroll हटाने के लिए */
+    overflow: hidden;
 }
 
 /* Navbar Styling */
@@ -75,5 +75,5 @@ webview {
     top: 50px;
     left: 0;
     border: none;
-    overflow: hidden; /* Scroll हटाने के लिए */
+    overflow: hidden; 
 }
