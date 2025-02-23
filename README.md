@@ -23,6 +23,10 @@ A browser that doesn't require a mouse. Just the keyboard is enough.
 - Quick page reload functionality
 - Address bar with URL display and direct navigation
 
+### Demo 
+
+[Demo](https://youtu.be/O76eRxvM4L8?si=MbzdATviO-0b43AH)
+
 ### Core Commands for next Beta version
 
 - [ ] navigate to result links `alt+L` `up/down` ajeet
