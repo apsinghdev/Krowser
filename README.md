@@ -15,13 +15,14 @@ A browser that doesn't require a mouse. Just the keyboard is enough.
 
 ### Core Commands
 
-- [ ] navigate to result links `alt+l` `up/down` ajeet
+- [ ] navigate to result links `alt+L` `up/down` ajeet
 - [ ] navigate to search results (of `cmd/ctrl` + `f`) and click `enter` ajeet
 - [ ] search a clickable by name on the page and click `ctrl/cmd+l+f` `up/down` and `enter` falgun
 - [ ] find all the clickables on the page `alt+l+f`
 - [ ] find a particular link in those clickables ie. a clickable that starts with `https` on the page `alt+f` `up/down` and `enter`
 - [ ] a search bar to find all the availalble shortcuts based ie. I type `url` and all the shortcuts related to url shows up `alt+h` dampi
 - [ ] find all the input boxes on the page and hover over them (one by one). `alt+i` `up/down` `enter` 
+- [ ] show all the bookmarks, search and click.
 - [ ] go forward `alt+n` sarav
 - [ ] go backward `alt+p` hitanshu
 
