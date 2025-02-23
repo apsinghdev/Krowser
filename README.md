@@ -15,6 +15,14 @@ A browser that doesn't require a mouse. Just the keyboard is enough.
 [Our FOSS Idea](https://fossunited.org/hack/fosshack25/p/gu6i7f7503)
 
 
+### Current Features
+
+- Full web browsing capabilities with modern web standards support
+- Smart URL handling (automatically adds https:// when needed)
+- Back/forward navigation with both buttons and keyboard shortcuts
+- Quick page reload functionality
+- Address bar with URL display and direct navigation
+
 ### Core Commands for next Beta version
 
 - [ ] navigate to result links `alt+L` `up/down` ajeet
