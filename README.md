@@ -10,7 +10,7 @@ A browser that doesn't require a mouse. Just the keyboard is enough.
 2. Member-2 : Falgun
 3. Member-3 : Hitanshu Kumar Singh
 4. Member-4 : Saurav Singh
-5. Member-4 : Dampi Pal
+5. Member-5 : Dampi Pal
 
 [Our FOSS Idea](https://fossunited.org/hack/fosshack25/p/gu6i7f7503)
 
